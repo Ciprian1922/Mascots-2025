@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pet & Plant Manager</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .card { background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .sensor-value { font-size: 24px; color: #2c3e50; }
+        button { background: #4CAF50; color: white; border: none; padding: 15px 30px; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #45a049; }
+        .history { margin-top: 15px; color: #666; }
+    </style>
+</head>
+<body>
+    <h1>Pet & Plant Management System</h1>
+    
+    <div class="card">
+        <h2>Current Status</h2>
+        <p>Food Weight: <span class="sensor-value">{{ weight }}g</span></p>
+        <p>Soil Moisture: <span class="sensor-value">{{ moisture }}</span></p>
+        <p>Sensor Voltage: <span class="sensor-value">{{ voltage }}V</span></p>
+    </div>
+
+    <div class="card">
+        <h2>Actions</h2>
+        <button onclick="triggerAction('feed')">Feed Cat Now</button>
+        <button onclick="triggerAction('water')">Water Plant Now</button>
+        
+        <div class="history">
+            <p>Last Fed: {{ last_feed }}</p>
+            <p>Last Watered: {{ last_water }}</p>
+        </div>
+    </div>
+
+<script>
+function triggerAction(type) {
+    fetch(/action/${type}, { method: 'POST' })
+        .then(() => window.location.reload())
+}
+
+// Auto-refresh every 5 seconds
+setInterval(() => window.location.reload(), 5000)
+</script>
+</body>
+</html>
