@@ -57,7 +57,7 @@ class WeightSensor:
         self.hx = HX711(DT_PIN, SCK_PIN)
         self.hx.set_reading_format("MSB", "MSB")
         
-        print("⚖️ Calibrating weight sensor...")
+        print(" Calibrating weight sensor...")
         start = time.time()
         while not self.hx.is_ready():
             if time.time() - start > 10:
@@ -159,7 +159,7 @@ def action_handler(actuators):
                 if success:
                     conn.execute("DELETE FROM actions WHERE rowid = ?", (action_id,))
                     conn.commit()
-                    print(f"✅ {action_type.capitalize()} action completed")
+                    print(f" {action_type.capitalize()} action completed")
                 
         except sqlite3.OperationalError:
             conn.execute('''
@@ -185,4 +185,4 @@ if _name_ == '_main_':
         while True: time.sleep(1)
     except KeyboardInterrupt:
         GPIO.cleanup()
-        print("🚨 System stopped")
+        print(" System stopped")
